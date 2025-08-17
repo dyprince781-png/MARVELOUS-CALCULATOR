@@ -2,60 +2,74 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Scientific Calculator</title>
+  <title>Scientific Calculator (Web)</title>
   <style>
     :root{
-      --bg1:#87ceeb; /* skyblue */
+      --bg1:#87ceeb; /* sky blue */
       --bg2:#ffffff; /* white */
-      --button-bg:#000000; /* black */
-      --button-text:#ffffff; /* white */
       --panel:#ffffff;
       --panel-2:#f0f9ff;
-      --text:#000000;
-      --muted:#333333;
-      --accent:#1e90ff;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;display:flex;align-items:center;justify-content:center;
-      background:linear-gradient(135deg,var(--bg1) 0%,var(--bg2) 100%);
-      color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
-    }
-    .wrap{width:min(760px,96vw);padding:16px}
-    .calc{
-      background:var(--panel);
-      border:1px solid #ccc;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.25);
-      overflow:hidden
-    }
-    .topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--panel-2);border-bottom:1px solid #ddd}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.3px}
-    .brand img{height:28px;width:auto}
-    .modes{display:flex;gap:10px;align-items:center}
-    .toggle{display:inline-flex;align-items:center;background:#e6f2ff;border:1px solid #bcd;border-radius:999px;overflow:hidden}
-    .toggle button{padding:6px 12px;border:0;background:transparent;color:var(--muted);font-weight:600;cursor:pointer}
-    .toggle button.active{background:var(--accent);color:#fff}
-    .screen{padding:16px}
-    .display{background:#f9f9f9;border:1px solid #ddd;border-radius:14px;padding:14px;min-height:110px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px}
-    .expr{font-size:1rem;color:var(--muted);word-wrap:break-word;min-height:1.4em}
-    .result{font-size:2rem;line-height:1.2;font-weight:700;word-wrap:break-word;min-height:1.6em}.keys{display:grid;gap:10px;padding:14px;grid-template-columns:repeat(6,1fr)}
-button.key{
-  appearance:none;border:1px solid #000;background:var(--button-bg);color:var(--button-text);
-  border-radius:14px;padding:14px 10px;font-size:1rem;font-weight:700;cursor:pointer;
-  transition:transform .06s ease;
-  box-shadow:0 2px 0 0 #333
+      --text:#000;
+      --muted:#374151;
+      --accent:#1e90ff; /* blue */
+      --shift:#fbbf24; /* amber */
+      --alpha:#a78bfa; /* violet */
+      --btn:#000; /* button background black */
+      --btn-text:#fff; /* button text white */
+    }*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(1200px 600px at 50% -10%, rgba(255,255,255,.6), transparent),
+             linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 100%);
+  color:var(--text);font-family:system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
 }
+
+.wrap{width:min(860px,96vw);padding:16px}
+.calc{background:var(--panel);border-radius:22px;border:1px solid #dbeafe;box-shadow:0 20px 40px rgba(0,0,0,.2);overflow:hidden}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--panel-2);border-bottom:1px solid #d1e5ff}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
+.brand img{height:28px;width:auto}
+
+.modebar{display:flex;gap:8px;align-items:center}
+.pill{display:inline-flex;gap:4px;align-items:center;background:#e6f2ff;border:1px solid #cfe0ff;border-radius:999px;padding:4px}
+.pill button{border:0;background:transparent;font-weight:700;padding:6px 12px;border-radius:999px;cursor:pointer;color:#334155}
+.pill button.active{background:var(--accent);color:#fff}
+
+.display{padding:14px}
+.screen{background:#f8fafc;border:1px solid #dbeafe;border-radius:16px;min-height:120px;padding:12px 14px;display:flex;flex-direction:column;justify-content:center}
+.expr{font-size:1.6rem;min-height:1.8em;word-wrap:break-word}
+.result{font-size:1.8rem;font-weight:800;align-self:flex-end}
+
+.bars{display:flex;gap:8px;align-items:center;padding:6px 14px 0}
+.chip{border:1px solid #e5e7eb;border-radius:999px;padding:4px 10px;font-size:.9rem}
+.chip.shift{background:rgba(251,191,36,.15);border-color:#facc15}
+.chip.alpha{background:rgba(167,139,250,.15);border-color:#c4b5fd}
+
+.keys{padding:14px;display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+button.key{appearance:none;background:var(--btn);color:var(--btn-text);border:1px solid #000;border-radius:14px;padding:12px 10px;min-height:52px;font-size:1rem;font-weight:800;cursor:pointer;box-shadow:0 2px 0 #333;transition:transform .06s ease}
 button.key:active{transform:translateY(1px)}
-.k-wide{grid-column:span 2}
-.k-3wide{grid-column:span 3}
-.footer{padding:6px 14px 14px;color:var(--muted);font-size:.8rem;display:flex;justify-content:space-between;align-items:center}
-.hint{opacity:.9}
-.small{font-size:.8rem;color:var(--muted)}
+
+/* dual label styling */
+.key .top{display:block;font-size:.72rem;line-height:1;color:#000;font-weight:800}
+.key .top.shift{color:#7c5800;background:linear-gradient(transparent 70%, rgba(251,191,36,.35) 0)}
+.key .top.alpha{color:#3b2b7d;background:linear-gradient(transparent 70%, rgba(167,139,250,.35) 0)}
+.key .main{display:block}
+
+.key.ac{background:#ffedd5;color:#7c2d12;border-color:#ffedd5}
+.key.op{background:#0a0a0a}
+.key.eq{background:#0a0a0a}
+
+.wide-2{grid-column:span 2}
+
+.footer{padding:8px 14px 14px;display:flex;justify-content:space-between;color:#334155;font-size:.9rem}
 
 @media (max-width:520px){
-  .result{font-size:1.6rem}
   .keys{gap:8px}
-  button.key{padding:12px 8px;border-radius:12px}
+  button.key{min-height:48px}
+  .expr{font-size:1.2rem}
+  .result{font-size:1.4rem}
 }
 
   </style>
@@ -64,79 +78,546 @@ button.key:active{transform:translateY(1px)}
   <div class="wrap">
     <div class="calc" id="calc">
       <div class="topbar">
-        <div class="brand">
-          <img src="logo.png" alt="Logo" />
-          SciCalc
-        </div>
-        <div class="modes">
-          <div class="toggle" role="tablist" aria-label="Angle Mode">
+        <div class="brand"><img src="logo.png" alt="Logo"> SciCalc</div>
+        <div class="modebar">
+          <div class="pill" role="tablist" aria-label="Angle Mode">
             <button class="deg active" data-mode="DEG" aria-selected="true">DEG</button>
             <button class="rad" data-mode="RAD" aria-selected="false">RAD</button>
           </div>
         </div>
-      </div><div class="screen">
-    <div class="display" aria-live="polite">
+      </div><div class="display">
+    <div class="screen">
       <div class="expr" id="expr"></div>
       <div class="result" id="result">0</div>
     </div>
   </div>
 
+  <div class="bars">
+    <span class="chip shift" id="chipShift">SHIFT off</span>
+    <span class="chip alpha" id="chipAlpha">ALPHA off</span>
+    <span class="chip" id="chipMode">DEG</span>
+  </div>
+
+  <!-- Buttons grid (Casio-like) -->
   <div class="keys" id="keys">
     <!-- Row 1 -->
-    <button class="key" data-action="ac">AC</button>
-    <button class="key" data-action="del">DEL</button>
-    <button class="key" data-insert="(">(</button>
-    <button class="key" data-insert=")">)</button>
-    <button class="key" data-insert=",">,</button>
-    <button class="key" data-action="ans">Ans</button>
+    <button class="key" data-action="shift"><span class="main">SHIFT</span></button>
+    <button class="key" data-action="alpha"><span class="main">ALPHA</span></button>
+    <button class="key" data-action="left"><span class="main">◄</span></button>
+    <button class="key" data-action="right"><span class="main">►</span></button>
+    <button class="key" data-action="mode"><span class="main">MODE</span></button>
+    <button class="key" data-action="second"><span class="main">2nd</span></button>
 
-    <!-- Row 2 -->
-    <button class="key" data-insert="sin(">sin</button>
-    <button class="key" data-insert="cos(">cos</button>
-    <button class="key" data-insert="tan(">tan</button>
-    <button class="key" data-insert="asin(">asin</button>
-    <button class="key" data-insert="acos(">acos</button>
-    <button class="key" data-insert="atan(">atan</button>
+    <!-- Row 2 (functions) -->
+    <button class="key" data-insert="calc("><span class="top shift">x!</span><span class="main">CALC</span></button>
+    <button class="key" data-insert="integrate("><span class="top shift">d/dx</span><span class="main">∫dx</span></button>
+    <button class="key" data-action="up"><span class="main">▲</span></button>
+    <button class="key" data-action="down"><span class="main">▼</span></button>
+    <button class="key" data-insert="inv("><span class="top shift">x⁻¹</span><span class="main">x⁻¹</span></button>
+    <button class="key" data-insert="logxy("><span class="top shift">Σ</span><span class="main">Logxᵧ</span></button>
 
     <!-- Row 3 -->
-    <button class="key" data-insert="7">7</button>
-    <button class="key" data-insert="8">8</button>
-    <button class="key" data-insert="9">9</button>
-    <button class="key" data-insert="/">÷</button>
-    <button class="key" data-insert="^">^</button>
-    <button class="key" data-insert="sqrt(">√</button>
+    <button class="key" data-insert="x_y("><span class="top shift">x√y</span><span class="main">x/y</span></button>
+    <button class="key" data-insert="root3("><span class="top shift">∛x</span><span class="main">√x</span></button>
+    <button class="key" data-insert="pow2("><span class="top shift">x³</span><span class="main">x²</span></button>
+    <button class="key op" data-insert="^"><span class="top shift">10ˣ</span><span class="main">xʸ</span></button>
+    <button class="key op" data-insert="*"><span class="top shift">×10^</span><span class="main">×</span></button>
+    <button class="key ac" data-action="ac"><span class="top shift">CLR ALL</span><span class="main">AC</span></button>
 
-    <!-- Row 4 -->
-    <button class="key" data-insert="4">4</button>
-    <button class="key" data-insert="5">5</button>
-    <button class="key" data-insert="6">6</button>
-    <button class="key" data-insert="*">×</button>
-    <button class="key" data-insert="-">−</button>
-    <button class="key" data-insert="log10(">log</button>
+    <!-- Row 4 (Trig + ops) -->
+    <button class="key" data-primary="sin(" data-shift="asin(" data-label-main="Sin" data-label-shift="Sin⁻¹"><span class="top shift">Sin⁻¹</span><span class="main">Sin</span></button>
+    <button class="key" data-primary="cos(" data-shift="acos(" data-label-main="Cos" data-label-shift="Cos⁻¹"><span class="top shift">Cos⁻¹</span><span class="main">Cos</span></button>
+    <button class="key" data-primary="tan(" data-shift="atan(" data-label-main="Tan" data-label-shift="Tan⁻¹"><span class="top shift">Tan⁻¹</span><span class="main">Tan</span></button>
+    <button class="key op" data-insert="/"><span class="main">÷</span></button>
+    <button class="key op" data-insert="+"><span class="main">+</span></button>
+    <button class="key op" data-insert="-"><span class="main">−</span></button>
 
-    <!-- Row 5 -->
-    <button class="key" data-insert="1">1</button>
-    <button class="key" data-insert="2">2</button>
-    <button class="key" data-insert="3">3</button>
-    <button class="key" data-insert="+">+</button>
-    <button class="key" data-insert="ln(">ln</button>
-    <button class="key" data-insert="exp(">exp</button>
+    <!-- Row 5 (digits) -->
+    <button class="key" data-insert="7"><span class="main">7</span></button>
+    <button class="key" data-insert="8"><span class="main">8</span></button>
+    <button class="key" data-insert="9"><span class="main">9</span></button>
+    <button class="key" data-action="del"><span class="main">⌫</span></button>
+    <button class="key" data-insert="("><span class="main">(</span></button>
+    <button class="key" data-insert=")"><span class="main">)</span></button>
 
     <!-- Row 6 -->
-    <button class="key k-3wide" data-insert="0">0</button>
-    <button class="key" data-insert=".">.</button>
-    <button class="key" data-insert="pi">π</button>
-    <button class="key" data-insert="e">e</button>
-    <button class="key" data-action="equals">=</button>
+    <button class="key" data-insert="4"><span class="main">4</span></button>
+    <button class="key" data-insert="5"><span class="main">5</span></button>
+    <button class="key" data-insert="6"><span class="main">6</span></button>
+    <button class="key" data-insert=","><span class="main">,</span></button>
+    <button class="key" data-insert="pi"><span class="main">π</span></button>
+    <button class="key" data-insert="e"><span class="main">e</span></button>
+
+    <!-- Row 7 -->
+    <button class="key" data-insert="1"><span class="main">1</span></button>
+    <button class="key" data-insert="2"><span class="main">2</span></button>
+    <button class="key" data-insert="3"><span class="main">3</span></button>
+    <button class="key op" data-insert="."><span class="main">.</span></button>
+    <button class="key" data-action="ans"><span class="main">Ans</span></button>
+    <button class="key eq" data-action="equals"><span class="main">=</span></button>
+
+    <!-- Row 8 (zero wide) -->
+    <button class="key wide-2" data-insert="0"><span class="main">0</span></button>
+    <button class="key" data-insert="log10("><span class="main">Log</span></button>
+    <button class="key" data-insert="ln("><span class="main">Ln</span></button>
+    <button class="key" data-insert="sqrt("><span class="main">√</span></button>
   </div>
 
   <div class="footer">
-    <div class="hint">Tip: Use your keyboard too. Type ^ for powers.</div>
-    <div class="small" id="status">DEG mode</div>
+    <span id="status">Ready</span>
+    <span>DEG/RAD, SHIFT & ALPHA supported</span>
   </div>
 </div>
 
   </div>  <script>
-  // (The same JavaScript logic as before remains unchanged)
+  (function(){
+    const exprEl = document.getElementById('expr');
+    const resEl = document.getElementById('result');
+    const keys = document.getElementById('keys');
+    const chipShift = document.getElementById('chipShift');
+    const chipAlpha = document.getElementById('chipAlpha');
+    const chipMode = document.getElementById('chipMode');
+    const statusEl = document.getElementById('status');
+
+    const degBtn = document.querySelector('.deg');
+    const radBtn = document.querySelector('.rad');
+
+    let expression = '';
+    let lastAns = 0;
+    let angleMode = 'DEG';
+    let shift = false;
+    let alpha = false;
+
+    function setMode(mode){
+      angleMode = mode;
+      degBtn.classList.toggle('active', mode==='DEG');
+      radBtn.classList.toggle('active', mode==='RAD');
+      chipMode.textContent = mode;
+      preview();
+    }
+    function toggleShift(){ shift = !shift; chipShift.textContent = 'SHIFT ' + (shift?'on':'off'); if(shift) alpha=false; chipAlpha.textContent='ALPHA off'; }
+    function toggleAlpha(){ alpha = !alpha; chipAlpha.textContent = 'ALPHA ' + (alpha?'on':'off'); if(alpha) shift=false; chipShift.textContent='SHIFT off'; }
+
+    document.querySelector('.pill').addEventListener('click', (e)=>{ const m=e.target?.dataset?.mode; if(!m) return; setMode(m); });
+
+    function insert(txt){ expression += txt; exprEl.textContent = pretty(expression); preview(); }
+    function ac(){ expression=''; exprEl.textContent=''; resEl.textContent='0'; }
+    function del(){ if(!expression) return; expression = expression.slice(0,-1); exprEl.textContent=pretty(expression); preview(); }
+    function ans(){ insert(String(lastAns)); }
+
+    function pretty(s){
+      return s.replace(/asin\(/g,'sin⁻¹(').replace(/acos\(/g,'cos⁻¹(').replace(/atan\(/g,'tan⁻¹(')
+              .replace(/\*\*/g,'^').replace(/Math\.PI/g,'π');
+    }
+
+    // ---------- Evaluation ----------
+    function sanitize(expr){
+      expr = expr.replace(/π|pi/gi,'PI').replace(/×/g,'*').replace(/÷/g,'/');
+      expr = expr.replace(/(\d|PI|e)\s*\(/g,'$1*(');
+      expr = expr.replace(/\^/g,'**');
+      expr = expr.replace(/\bPI\b/g,'Math.PI').replace(/\be\b/g,'Math.E');
+
+      const toRad = (x)=> angleMode==='DEG'? (x*Math.PI/180): x;
+      const fromRad = (x)=> angleMode==='DEG'? (x*180/Math.PI): x;
+      
+      function fact(n){ n=Math.trunc(n); if(n<0) throw Error('fact'); let r=1; for(let i=2;i<=n;i++) r*=i; return r; }
+      function nPr(n,r){ n=Math.trunc(n); r=Math.trunc(r); if(n<0||r<0||r>n) throw Error('nPr'); return fact(n)/fact(n-r); }
+      function nCr(n,r){ n=Math.trunc(n); r=Math.trunc(r); if(n<0||r<0||r>n) throw Error('nCr'); return fact(n)/(fact(r)*fact(n-r)); }
+
+      const scope = {
+        sin:(x)=> Math.sin(toRad(x)),
+        cos:(x)=> Math.cos(toRad(x)),
+        tan:(x)=> Math.tan(toRad(x)),
+        asin:(x)=> fromRad(Math.asin(x)),
+        acos:(x)=> fromRad(Math.acos(x)),
+        atan:(x)=> fromRad(Math.atan(x)),
+        sqrt:(x)=> Math.sqrt(x),
+        log10:(x)=> Math.log10(x),
+        ln:(x)=> Math.log(x),
+        exp:(x)=> Math.exp(x),
+        pow:(x,y)=> Math.pow(x,y),
+        fact, nPr, nCr,
+        Math
+      };
+      expr = expr.replace(/\b(sin|cos|tan|asin|acos|atan|sqrt|log10|ln|exp|pow|fact|nPr|nCr)\s*\(/g,'scope.$1(');
+      return {js:expr, scope};
+    }
+
+    function evaluate(expr){
+      const {js, scope} = sanitize(expr);
+      const fn = new Function('scope','with(scope){ return ('+js+'); }');
+      const val = fn(scope);
+      if(!isFinite(val)) throw Error('Math error');
+      return val;
+    }
+
+    function format(n){
+      if(!isFinite(n)) return 'Error';
+      const abs=Math.abs(n);
+      if(abs>=1e10 || (abs>0 && abs<1e-6)) return n.toExponential(8);
+      let s=n.toFixed(12); s=s.replace(/\.0+$/,'').replace(/(\.\d*?)0+$/,'$1');
+      return s;
+    }
+
+    function preview(){
+      if(!expression){ resEl.textContent='0'; return; }
+      try{ const v=evaluate(expression); resEl.textContent=format(v);}catch{ resEl.textContent='…'; }
+    }
+
+    // ---------- Events ----------
+    keys.addEventListener('click', (e)=>{
+      const btn = e.target.closest('button.key'); if(!btn) return;
+      const action = btn.dataset.action;
+      if(action){
+        if(action==='shift'){ toggleShift(); return; }
+        if(action==='alpha'){ toggleAlpha(); return; }
+        if(action==='ac'){ ac(); return; }
+        if(action==='del'){ del(); return; }
+        if(action==='equals'){
+          try{ const v = evaluate(expression); lastAns=v; expression=String(v); exprEl.textContent=pretty(expression); resEl.textContent=format(v);}catch{ resEl.textContent='Error'; }
+          shift=false; alpha=false; chipShift.textContent='SHIFT off'; chipAlpha.textContent='ALPHA off';
+          return;
+        }
+        if(action==='ans'){ ans(); return; }
+        // unhandled navigation (left/right/up/down/mode/second) – reserved for future
+        return;
+      }
+      // dual label button support
+      const primary = btn.dataset.primary; const shifted = btn.dataset.shift; const alphaTxt = btn.dataset.alpha;
+      if(primary || shifted || alphaTxt){
+        if(shift && shifted){ insert(shifted); shift=false; chipShift.textContent='SHIFT off'; return; }
+        if(alpha && alphaTxt){ insert(alphaTxt); alpha=false; chipAlpha.textContent='ALPHA off'; return; }
+        insert(primary || btn.dataset.insert || ''); return;
+      }
+      const ins = btn.dataset.insert; if(ins){ insert(ins); return; }
+    });
+
+    window.addEventListener('keydown', (e)=>{
+      const k=e.key;
+      if(k==='Enter'){ e.preventDefault(); const eqBtn=document.querySelector('[data-action="equals"]'); eqBtn.click(); return; }
+      if(k==='Backspace'){ e.preventDefault(); del(); return; }
+      if(k==='Escape'){ e.preventDefault(); ac(); return; }
+      const allowed='0123456789+-*/().,^.';
+      if(allowed.includes(k)){ insert(k); return; }
+      if(/^[a-z]$/i.test(k)){ insert(k); return; }
+    });
+
+    // expose a few shift features via text functions
+    // x!  => fact(x), x^y => ^, x√y => pow(x,1/y)
+
+    setMode('DEG');
+    statusEl.textContent='Ready';
+  })();
   </script></body>
-</html>
+                                                                         </html><!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scientific Calculator (Web)</title>
+  <style>
+    :root{
+      --bg1:#87ceeb; /* sky blue */
+      --bg2:#ffffff; /* white */
+      --panel:#ffffff;
+      --panel-2:#f0f9ff;
+      --text:#000;
+      --muted:#374151;
+      --accent:#1e90ff; /* blue */
+      --shift:#fbbf24; /* amber */
+      --alpha:#a78bfa; /* violet */
+      --btn:#000; /* button background black */
+      --btn-text:#fff; /* button text white */
+    }*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(1200px 600px at 50% -10%, rgba(255,255,255,.6), transparent),
+             linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 100%);
+  color:var(--text);font-family:system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+}
+
+.wrap{width:min(860px,96vw);padding:16px}
+.calc{background:var(--panel);border-radius:22px;border:1px solid #dbeafe;box-shadow:0 20px 40px rgba(0,0,0,.2);overflow:hidden}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--panel-2);border-bottom:1px solid #d1e5ff}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
+.brand img{height:28px;width:auto}
+
+.modebar{display:flex;gap:8px;align-items:center}
+.pill{display:inline-flex;gap:4px;align-items:center;background:#e6f2ff;border:1px solid #cfe0ff;border-radius:999px;padding:4px}
+.pill button{border:0;background:transparent;font-weight:700;padding:6px 12px;border-radius:999px;cursor:pointer;color:#334155}
+.pill button.active{background:var(--accent);color:#fff}
+
+.display{padding:14px}
+.screen{background:#f8fafc;border:1px solid #dbeafe;border-radius:16px;min-height:120px;padding:12px 14px;display:flex;flex-direction:column;justify-content:center}
+.expr{font-size:1.6rem;min-height:1.8em;word-wrap:break-word}
+.result{font-size:1.8rem;font-weight:800;align-self:flex-end}
+
+.bars{display:flex;gap:8px;align-items:center;padding:6px 14px 0}
+.chip{border:1px solid #e5e7eb;border-radius:999px;padding:4px 10px;font-size:.9rem}
+.chip.shift{background:rgba(251,191,36,.15);border-color:#facc15}
+.chip.alpha{background:rgba(167,139,250,.15);border-color:#c4b5fd}
+
+.keys{padding:14px;display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+button.key{appearance:none;background:var(--btn);color:var(--btn-text);border:1px solid #000;border-radius:14px;padding:12px 10px;min-height:52px;font-size:1rem;font-weight:800;cursor:pointer;box-shadow:0 2px 0 #333;transition:transform .06s ease}
+button.key:active{transform:translateY(1px)}
+
+/* dual label styling */
+.key .top{display:block;font-size:.72rem;line-height:1;color:#000;font-weight:800}
+.key .top.shift{color:#7c5800;background:linear-gradient(transparent 70%, rgba(251,191,36,.35) 0)}
+.key .top.alpha{color:#3b2b7d;background:linear-gradient(transparent 70%, rgba(167,139,250,.35) 0)}
+.key .main{display:block}
+
+.key.ac{background:#ffedd5;color:#7c2d12;border-color:#ffedd5}
+.key.op{background:#0a0a0a}
+.key.eq{background:#0a0a0a}
+
+.wide-2{grid-column:span 2}
+
+.footer{padding:8px 14px 14px;display:flex;justify-content:space-between;color:#334155;font-size:.9rem}
+
+@media (max-width:520px){
+  .keys{gap:8px}
+  button.key{min-height:48px}
+  .expr{font-size:1.2rem}
+  .result{font-size:1.4rem}
+}
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="calc" id="calc">
+      <div class="topbar">
+        <div class="brand"><img src="logo.png" alt="Logo"> SciCalc</div>
+        <div class="modebar">
+          <div class="pill" role="tablist" aria-label="Angle Mode">
+            <button class="deg active" data-mode="DEG" aria-selected="true">DEG</button>
+            <button class="rad" data-mode="RAD" aria-selected="false">RAD</button>
+          </div>
+        </div>
+      </div><div class="display">
+    <div class="screen">
+      <div class="expr" id="expr"></div>
+      <div class="result" id="result">0</div>
+    </div>
+  </div>
+
+  <div class="bars">
+    <span class="chip shift" id="chipShift">SHIFT off</span>
+    <span class="chip alpha" id="chipAlpha">ALPHA off</span>
+    <span class="chip" id="chipMode">DEG</span>
+  </div>
+
+  <!-- Buttons grid (Casio-like) -->
+  <div class="keys" id="keys">
+    <!-- Row 1 -->
+    <button class="key" data-action="shift"><span class="main">SHIFT</span></button>
+    <button class="key" data-action="alpha"><span class="main">ALPHA</span></button>
+    <button class="key" data-action="left"><span class="main">◄</span></button>
+    <button class="key" data-action="right"><span class="main">►</span></button>
+    <button class="key" data-action="mode"><span class="main">MODE</span></button>
+    <button class="key" data-action="second"><span class="main">2nd</span></button>
+
+    <!-- Row 2 (functions) -->
+    <button class="key" data-insert="calc("><span class="top shift">x!</span><span class="main">CALC</span></button>
+    <button class="key" data-insert="integrate("><span class="top shift">d/dx</span><span class="main">∫dx</span></button>
+    <button class="key" data-action="up"><span class="main">▲</span></button>
+    <button class="key" data-action="down"><span class="main">▼</span></button>
+    <button class="key" data-insert="inv("><span class="top shift">x⁻¹</span><span class="main">x⁻¹</span></button>
+    <button class="key" data-insert="logxy("><span class="top shift">Σ</span><span class="main">Logxᵧ</span></button>
+
+    <!-- Row 3 -->
+    <button class="key" data-insert="x_y("><span class="top shift">x√y</span><span class="main">x/y</span></button>
+    <button class="key" data-insert="root3("><span class="top shift">∛x</span><span class="main">√x</span></button>
+    <button class="key" data-insert="pow2("><span class="top shift">x³</span><span class="main">x²</span></button>
+    <button class="key op" data-insert="^"><span class="top shift">10ˣ</span><span class="main">xʸ</span></button>
+    <button class="key op" data-insert="*"><span class="top shift">×10^</span><span class="main">×</span></button>
+    <button class="key ac" data-action="ac"><span class="top shift">CLR ALL</span><span class="main">AC</span></button>
+
+    <!-- Row 4 (Trig + ops) -->
+    <button class="key" data-primary="sin(" data-shift="asin(" data-label-main="Sin" data-label-shift="Sin⁻¹"><span class="top shift">Sin⁻¹</span><span class="main">Sin</span></button>
+    <button class="key" data-primary="cos(" data-shift="acos(" data-label-main="Cos" data-label-shift="Cos⁻¹"><span class="top shift">Cos⁻¹</span><span class="main">Cos</span></button>
+    <button class="key" data-primary="tan(" data-shift="atan(" data-label-main="Tan" data-label-shift="Tan⁻¹"><span class="top shift">Tan⁻¹</span><span class="main">Tan</span></button>
+    <button class="key op" data-insert="/"><span class="main">÷</span></button>
+    <button class="key op" data-insert="+"><span class="main">+</span></button>
+    <button class="key op" data-insert="-"><span class="main">−</span></button>
+
+    <!-- Row 5 (digits) -->
+    <button class="key" data-insert="7"><span class="main">7</span></button>
+    <button class="key" data-insert="8"><span class="main">8</span></button>
+    <button class="key" data-insert="9"><span class="main">9</span></button>
+    <button class="key" data-action="del"><span class="main">⌫</span></button>
+    <button class="key" data-insert="("><span class="main">(</span></button>
+    <button class="key" data-insert=")"><span class="main">)</span></button>
+
+    <!-- Row 6 -->
+    <button class="key" data-insert="4"><span class="main">4</span></button>
+    <button class="key" data-insert="5"><span class="main">5</span></button>
+    <button class="key" data-insert="6"><span class="main">6</span></button>
+    <button class="key" data-insert=","><span class="main">,</span></button>
+    <button class="key" data-insert="pi"><span class="main">π</span></button>
+    <button class="key" data-insert="e"><span class="main">e</span></button>
+
+    <!-- Row 7 -->
+    <button class="key" data-insert="1"><span class="main">1</span></button>
+    <button class="key" data-insert="2"><span class="main">2</span></button>
+    <button class="key" data-insert="3"><span class="main">3</span></button>
+    <button class="key op" data-insert="."><span class="main">.</span></button>
+    <button class="key" data-action="ans"><span class="main">Ans</span></button>
+    <button class="key eq" data-action="equals"><span class="main">=</span></button>
+
+    <!-- Row 8 (zero wide) -->
+    <button class="key wide-2" data-insert="0"><span class="main">0</span></button>
+    <button class="key" data-insert="log10("><span class="main">Log</span></button>
+    <button class="key" data-insert="ln("><span class="main">Ln</span></button>
+    <button class="key" data-insert="sqrt("><span class="main">√</span></button>
+  </div>
+
+  <div class="footer">
+    <span id="status">Ready</span>
+    <span>DEG/RAD, SHIFT & ALPHA supported</span>
+  </div>
+</div>
+
+  </div>  <script>
+  (function(){
+    const exprEl = document.getElementById('expr');
+    const resEl = document.getElementById('result');
+    const keys = document.getElementById('keys');
+    const chipShift = document.getElementById('chipShift');
+    const chipAlpha = document.getElementById('chipAlpha');
+    const chipMode = document.getElementById('chipMode');
+    const statusEl = document.getElementById('status');
+
+    const degBtn = document.querySelector('.deg');
+    const radBtn = document.querySelector('.rad');
+
+    let expression = '';
+    let lastAns = 0;
+    let angleMode = 'DEG';
+    let shift = false;
+    let alpha = false;
+
+    function setMode(mode){
+      angleMode = mode;
+      degBtn.classList.toggle('active', mode==='DEG');
+      radBtn.classList.toggle('active', mode==='RAD');
+      chipMode.textContent = mode;
+      preview();
+    }
+    function toggleShift(){ shift = !shift; chipShift.textContent = 'SHIFT ' + (shift?'on':'off'); if(shift) alpha=false; chipAlpha.textContent='ALPHA off'; }
+    function toggleAlpha(){ alpha = !alpha; chipAlpha.textContent = 'ALPHA ' + (alpha?'on':'off'); if(alpha) shift=false; chipShift.textContent='SHIFT off'; }
+
+    document.querySelector('.pill').addEventListener('click', (e)=>{ const m=e.target?.dataset?.mode; if(!m) return; setMode(m); });
+
+    function insert(txt){ expression += txt; exprEl.textContent = pretty(expression); preview(); }
+    function ac(){ expression=''; exprEl.textContent=''; resEl.textContent='0'; }
+    function del(){ if(!expression) return; expression = expression.slice(0,-1); exprEl.textContent=pretty(expression); preview(); }
+    function ans(){ insert(String(lastAns)); }
+
+    function pretty(s){
+      return s.replace(/asin\(/g,'sin⁻¹(').replace(/acos\(/g,'cos⁻¹(').replace(/atan\(/g,'tan⁻¹(')
+              .replace(/\*\*/g,'^').replace(/Math\.PI/g,'π');
+    }
+
+    // ---------- Evaluation ----------
+    function sanitize(expr){
+      expr = expr.replace(/π|pi/gi,'PI').replace(/×/g,'*').replace(/÷/g,'/');
+      expr = expr.replace(/(\d|PI|e)\s*\(/g,'$1*(');
+      expr = expr.replace(/\^/g,'**');
+      expr = expr.replace(/\bPI\b/g,'Math.PI').replace(/\be\b/g,'Math.E');
+
+      const toRad = (x)=> angleMode==='DEG'? (x*Math.PI/180): x;
+      const fromRad = (x)=> angleMode==='DEG'? (x*180/Math.PI): x;
+      
+      function fact(n){ n=Math.trunc(n); if(n<0) throw Error('fact'); let r=1; for(let i=2;i<=n;i++) r*=i; return r; }
+      function nPr(n,r){ n=Math.trunc(n); r=Math.trunc(r); if(n<0||r<0||r>n) throw Error('nPr'); return fact(n)/fact(n-r); }
+      function nCr(n,r){ n=Math.trunc(n); r=Math.trunc(r); if(n<0||r<0||r>n) throw Error('nCr'); return fact(n)/(fact(r)*fact(n-r)); }
+
+      const scope = {
+        sin:(x)=> Math.sin(toRad(x)),
+        cos:(x)=> Math.cos(toRad(x)),
+        tan:(x)=> Math.tan(toRad(x)),
+        asin:(x)=> fromRad(Math.asin(x)),
+        acos:(x)=> fromRad(Math.acos(x)),
+        atan:(x)=> fromRad(Math.atan(x)),
+        sqrt:(x)=> Math.sqrt(x),
+        log10:(x)=> Math.log10(x),
+        ln:(x)=> Math.log(x),
+        exp:(x)=> Math.exp(x),
+        pow:(x,y)=> Math.pow(x,y),
+        fact, nPr, nCr,
+        Math
+      };
+      expr = expr.replace(/\b(sin|cos|tan|asin|acos|atan|sqrt|log10|ln|exp|pow|fact|nPr|nCr)\s*\(/g,'scope.$1(');
+      return {js:expr, scope};
+    }
+
+    function evaluate(expr){
+      const {js, scope} = sanitize(expr);
+      const fn = new Function('scope','with(scope){ return ('+js+'); }');
+      const val = fn(scope);
+      if(!isFinite(val)) throw Error('Math error');
+      return val;
+    }
+
+    function format(n){
+      if(!isFinite(n)) return 'Error';
+      const abs=Math.abs(n);
+      if(abs>=1e10 || (abs>0 && abs<1e-6)) return n.toExponential(8);
+      let s=n.toFixed(12); s=s.replace(/\.0+$/,'').replace(/(\.\d*?)0+$/,'$1');
+      return s;
+    }
+
+    function preview(){
+      if(!expression){ resEl.textContent='0'; return; }
+      try{ const v=evaluate(expression); resEl.textContent=format(v);}catch{ resEl.textContent='…'; }
+    }
+
+    // ---------- Events ----------
+    keys.addEventListener('click', (e)=>{
+      const btn = e.target.closest('button.key'); if(!btn) return;
+      const action = btn.dataset.action;
+      if(action){
+        if(action==='shift'){ toggleShift(); return; }
+        if(action==='alpha'){ toggleAlpha(); return; }
+        if(action==='ac'){ ac(); return; }
+        if(action==='del'){ del(); return; }
+        if(action==='equals'){
+          try{ const v = evaluate(expression); lastAns=v; expression=String(v); exprEl.textContent=pretty(expression); resEl.textContent=format(v);}catch{ resEl.textContent='Error'; }
+          shift=false; alpha=false; chipShift.textContent='SHIFT off'; chipAlpha.textContent='ALPHA off';
+          return;
+        }
+        if(action==='ans'){ ans(); return; }
+        // unhandled navigation (left/right/up/down/mode/second) – reserved for future
+        return;
+      }
+      // dual label button support
+      const primary = btn.dataset.primary; const shifted = btn.dataset.shift; const alphaTxt = btn.dataset.alpha;
+      if(primary || shifted || alphaTxt){
+        if(shift && shifted){ insert(shifted); shift=false; chipShift.textContent='SHIFT off'; return; }
+        if(alpha && alphaTxt){ insert(alphaTxt); alpha=false; chipAlpha.textContent='ALPHA off'; return; }
+        insert(primary || btn.dataset.insert || ''); return;
+      }
+      const ins = btn.dataset.insert; if(ins){ insert(ins); return; }
+    });
+
+    window.addEventListener('keydown', (e)=>{
+      const k=e.key;
+      if(k==='Enter'){ e.preventDefault(); const eqBtn=document.querySelector('[data-action="equals"]'); eqBtn.click(); return; }
+      if(k==='Backspace'){ e.preventDefault(); del(); return; }
+      if(k==='Escape'){ e.preventDefault(); ac(); return; }
+      const allowed='0123456789+-*/().,^.';
+      if(allowed.includes(k)){ insert(k); return; }
+      if(/^[a-z]$/i.test(k)){ insert(k); return; }
+    });
+
+    // expose a few shift features via text functions
+    // x!  => fact(x), x^y => ^, x√y => pow(x,1/y)
+
+    setMode('DEG');
+    statusEl.textContent='Ready';
+  })();
+  </script></body>
+      </html>
