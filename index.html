@@ -17,41 +17,52 @@
     <input type="text" id="display" readonly>
 
     <div class="keys">
+      <!-- Row 1 -->
+      <button onclick="shiftMode()">SHIFT</button>
+      <button onclick="toggleDegRad()" id="degRad">DEG</button>
       <button onclick="clearDisplay()">AC</button>
       <button onclick="deleteLast()">DEL</button>
-      <button onclick="insert('(')">(</button>
-      <button onclick="insert(')')">)</button>
 
-      <button onclick="insert('7')">7</button>
-      <button onclick="insert('8')">8</button>
-      <button onclick="insert('9')">9</button>
-      <button onclick="insert('/')">÷</button>
-
-      <button onclick="insert('4')">4</button>
-      <button onclick="insert('5')">5</button>
-      <button onclick="insert('6')">6</button>
-      <button onclick="insert('*')">×</button>
-
-      <button onclick="insert('1')">1</button>
-      <button onclick="insert('2')">2</button>
-      <button onclick="insert('3')">3</button>
-      <button onclick="insert('-')">−</button>
-
-      <button onclick="insert('0')">0</button>
-      <button onclick="insert('.')">.</button>
-      <button onclick="calculate()">=</button>
-      <button onclick="insert('+')">+</button>
-
-      <!-- Scientific buttons -->
+      <!-- Row 2 -->
       <button onclick="insert('Math.sin(')">sin</button>
       <button onclick="insert('Math.cos(')">cos</button>
       <button onclick="insert('Math.tan(')">tan</button>
+      <button onclick="insert('/')">÷</button>
+
+      <!-- Row 3 -->
+      <button onclick="insert('7')">7</button>
+      <button onclick="insert('8')">8</button>
+      <button onclick="insert('9')">9</button>
+      <button onclick="insert('*')">×</button>
+
+      <!-- Row 4 -->
+      <button onclick="insert('4')">4</button>
+      <button onclick="insert('5')">5</button>
+      <button onclick="insert('6')">6</button>
+      <button onclick="insert('-')">−</button>
+
+      <!-- Row 5 -->
+      <button onclick="insert('1')">1</button>
+      <button onclick="insert('2')">2</button>
+      <button onclick="insert('3')">3</button>
+      <button onclick="insert('+')">+</button>
+
+      <!-- Row 6 -->
+      <button onclick="insert('0')">0</button>
+      <button onclick="insert('.')">.</button>
+      <button onclick="insert('Math.PI')">π</button>
+      <button class="equal" onclick="calculate()">=</button>
+
+      <!-- Extra scientific row -->
+      <button onclick="insert('**2')">x²</button>
+      <button onclick="insert('**3')">x³</button>
+      <button onclick="insert('**')">x^y</button>
+      <button onclick="insert('1/')">1/x</button>
+      <button onclick="insert('Math.sqrt(')">√</button>
       <button onclick="insert('Math.log(')">log</button>
       <button onclick="insert('Math.exp(')">exp</button>
-      <button onclick="insert('Math.sqrt(')">√</button>
-      <button onclick="insert('Math.PI')">π</button>
-      <button onclick="insert('Math.E')">e</button>
+      <button onclick="insert('Ans')">Ans</button>
     </div>
   </div>
 </body>
-</html>
+  </html>
