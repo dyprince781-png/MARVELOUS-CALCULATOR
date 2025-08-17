@@ -1,55 +1,48 @@
-const calculationDisplay = document.getElementById("calculation");
-const resultDisplay = document.getElementById("result");
-const buttons = document.querySelectorAll(".key");
+const display = document.getElementById("display");
+let shift = false;
+let ans = 0;
+let deg = true; // default is DEG mode
 
-let calculation = "";
-let lastResult = "";
+function insert(value) {
+  if (value === "Ans") {
+    display.value += ans;
+  } else {
+    display.value += value;
+  }
+}
 
-// Handle button clicks
-buttons.forEach(button => {
-  button.addEventListener("click", () => {
-    const insert = button.dataset.insert;
-    const action = button.dataset.action;
+function clearDisplay() {
+  display.value = "";
+}
 
-    if (insert) {
-      calculation += insert;
-      calculationDisplay.textContent = calculation;
+function deleteLast() {
+  display.value = display.value.slice(0, -1);
+}
+
+function calculate() {
+  try {
+    let expression = display.value;
+
+    // Handle DEG → RAD for trig
+    if (deg) {
+      expression = expression.replace(/Math\.sin\(([^)]+)\)/g, (_, angle) => `Math.sin((${angle})*Math.PI/180)`);
+      expression = expression.replace(/Math\.cos\(([^)]+)\)/g, (_, angle) => `Math.cos((${angle})*Math.PI/180)`);
+      expression = expression.replace(/Math\.tan\(([^)]+)\)/g, (_, angle) => `Math.tan((${angle})*Math.PI/180)`);
     }
 
-    if (action) {
-      if (action === "clear") {
-        calculation = "";
-        resultDisplay.textContent = "";
-        calculationDisplay.textContent = "";
-      } else if (action === "del") {
-        calculation = calculation.slice(0, -1);
-        calculationDisplay.textContent = calculation;
-      } else if (action === "equals") {
-        try {
-          let expr = calculation
-            .replace(/÷/g, "/")
-            .replace(/×/g, "*")
-            .replace(/π/g, "Math.PI")
-            .replace(/\be\b/g, "Math.E")
-            .replace(/sin\(/g, "Math.sin(")
-            .replace(/cos\(/g, "Math.cos(")
-            .replace(/tan\(/g, "Math.tan(")
-            .replace(/log\(/g, "Math.log10(")
-            .replace(/ln\(/g, "Math.log(")
-            .replace(/sqrt\(/g, "Math.sqrt(")
-            .replace(/(\d+)!/g, (m, n) => {
-              let f = 1;
-              for (let i = 1; i <= parseInt(n); i++) f *= i;
-              return f;
-            });
+    ans = eval(expression);
+    display.value = ans;
+  } catch {
+    display.value = "Error";
+  }
+}
 
-          let result = eval(expr);
-          resultDisplay.textContent = result;
-          lastResult = result;
-        } catch (err) {
-          resultDisplay.textContent = "Error";
+function shiftMode() {
+  shift = !shift;
+  alert("SHIFT mode (demo): in real version, buttons will change functions.");
+}
+
+function toggleDegRad() {
+  deg = !deg;
+  document.getElementById("degRad").innerText = deg ? "DEG" : "RAD";
         }
-      }
-    }
-  });
-});
