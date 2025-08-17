@@ -8,7 +8,7 @@
 </head>
 <body>
   <div class="calculator">
-    <!-- Display -->
+    <!-- Display Area -->
     <div class="display">
       <div id="calculation"></div>
       <div id="result"></div>
@@ -16,250 +16,45 @@
 
     <!-- Buttons Grid -->
     <div class="buttons">
-      <!-- Row A -->
-      <button class="key shift">SHIFT</button>
-      <button class="key alpha">ALPHA</button>
-      <button class="key" data-action="clear">AC</button>
-      <button class="key" data-action="del">DEL</button>
-      <button class="key" data-insert="(">(</button>
-      <button class="key" data-insert=")">)</button>
+      <!-- Top Row -->
+      <button class="key shift">Shift</button>
+      <button class="key" data-action="clear">C</button>
+      <button class="key" data-action="backspace">⌫</button>
+      <button class="key" data-value="(">(</button>
+      <button class="key" data-value=")">)</button>
+      <button class="key" data-value="/">÷</button>
 
-      <!-- Row B -->
-      <button class="key" data-insert="sin(">sin</button>
-      <button class="key" data-insert="cos(">cos</button>
-      <button class="key" data-insert="tan(">tan</button>
-      <button class="key" data-insert="log(">log</button>
-      <button class="key" data-insert="ln(">ln</button>
-      <button class="key" data-insert="^">xʸ</button>
+      <!-- Second Row -->
+      <button class="key" data-value="7">7</button>
+      <button class="key" data-value="8">8</button>
+      <button class="key" data-value="9">9</button>
+      <button class="key" data-value="sin(">sin</button>
+      <button class="key" data-value="cos(">cos</button>
+      <button class="key" data-value="*">×</button>
 
-      <!-- Row C -->
-      <button class="key" data-insert="sqrt(">√</button>
-      <button class="key" data-insert="^2">x²</button>
-      <button class="key" data-insert="pi">π</button>
-      <button class="key" data-insert="e">e</button>
-      <button class="key" data-insert="!">n!</button>
-      <button class="key" data-insert="Ans">Ans</button>
+      <!-- Third Row -->
+      <button class="key" data-value="4">4</button>
+      <button class="key" data-value="5">5</button>
+      <button class="key" data-value="6">6</button>
+      <button class="key" data-value="tan(">tan</button>
+      <button class="key" data-value="√(">√</button>
+      <button class="key" data-value="-">−</button>
 
-      <!-- Row D -->
-      <button class="key" data-insert="7">7</button>
-      <button class="key" data-insert="8">8</button>
-      <button class="key" data-insert="9">9</button>
-      <button class="key" data-insert="*">×</button>
-      <button class="key" data-insert="/">÷</button>
-      <button class="key" data-action="exp">EXP</button>
+      <!-- Fourth Row -->
+      <button class="key" data-value="1">1</button>
+      <button class="key" data-value="2">2</button>
+      <button class="key" data-value="3">3</button>
+      <button class="key" data-value="^">xʸ</button>
+      <button class="key" data-value="%">%</button>
+      <button class="key" data-value="+">+</button>
 
-      <!-- Row E -->
-      <button class="key" data-insert="4">4</button>
-      <button class="key" data-insert="5">5</button>
-      <button class="key" data-insert="6">6</button>
-      <button class="key" data-insert="+">+</button>
-      <button class="key" data-insert="-">−</button>
-      <button class="key" data-insert="Ans">Ans</button>
-
-      <!-- Row F -->
-      <button class="key" data-insert="1">1</button>
-      <button class="key" data-insert="2">2</button>
-      <button class="key" data-insert="3">3</button>
-      <button class="key" data-insert=".">.</button>
-      <button class="key" data-insert=",">,</button>
-      <button class="key" data-insert="1/(">1/x</button>
-
-      <!-- Row G -->
-      <button class="key wide-2" data-insert="0">0</button>
-      <button class="key" data-insert="Ans">Ans</button>
-      <button class="key eq" data-action="equals">=</button>
+      <!-- Bottom Row -->
+      <button class="key wide-2" data-value="0">0</button>
+      <button class="key" data-value=".">.</button>
+      <button class="key" data-action="equals">=</button>
     </div>
   </div>
 
   <script src="script.js"></script>
 </body>
-  </html>    <!-- Row B: scientific shortcuts -->
-    <button class="key" data-primary="sin(" data-shift="asin(" ><span class="top shift">Sin⁻¹</span><span class="main">Sin</span></button>
-    <button class="key" data-primary="cos(" data-shift="acos(" ><span class="top shift">Cos⁻¹</span><span class="main">Cos</span></button>
-    <button class="key" data-primary="tan(" data-shift="atan(" ><span class="top shift">Tan⁻¹</span><span class="main">Tan</span></button>
-    <button class="key" data-insert="log10("><span class="top shift">10ˣ</span><span class="main">Log</span></button>
-    <button class="key" data-insert="ln("><span class="top shift">eˣ</span><span class="main">Ln</span></button>
-    <button class="key ac" data-action="ac"><span class="top shift">CLR ALL</span><span class="main">AC</span></button>
-
-    <!-- Row C: power/roots & ops -->
-    <button class="key" data-insert="sqrt("><span class="top shift">∛x</span><span class="main">√</span></button>
-    <button class="key" data-insert="^"><span class="top shift">x³</span><span class="main">xʸ</span></button>
-    <button class="key" data-insert="**2"><span class="top shift">y√x</span><span class="main">x²</span></button>
-    <button class="key" data-insert="/"><span class="main">÷</span></button>
-    <button class="key" data-insert="*"><span class="main">×</span></button>
-    <button class="key" data-action="del"><span class="main">DEL</span></button>
-
-    <!-- Row D: digits -->
-    <button class="key" data-insert="7">7</button>
-    <button class="key" data-insert="8">8</button>
-    <button class="key" data-insert="9">9</button>
-    <button class="key" data-insert="(">(</button>
-    <button class="key" data-insert=")">)</button>
-    <button class="key" data-action="ans">Ans</button>
-
-    <!-- Row E: digits -->
-    <button class="key" data-insert="4">4</button>
-    <button class="key" data-insert="5">5</button>
-    <button class="key" data-insert="6">6</button>
-    <button class="key" data-insert="-">−</button>
-    <button class="key" data-insert="+">+</button>
-    <button class="key" data-insert="1/("><span class="main">1/x</span></button>
-
-    <!-- Row F: digits + constants -->
-    <button class="key wide-2" data-insert="0">0</button>
-    <button class="key" data-insert=".">.</button>
-    <button class="key" data-insert=",">,</button>
-    <button class="key" data-insert="pi">π</button>
-    <button class="key" data-insert="e">e</button>
-    <button class="key eq" data-action="equals">=</button>
-  </div>
-
-  <div class="footer">
-    <span id="status">Ready</span>
-    <span>Two-display • SHIFT • DEG/RAD</span>
-  </div>
-</div>
-
-  </div>  <script>
-  (function(){
-    const exprEl = document.getElementById('expr');
-    const resEl = document.getElementById('result');
-    const keys = document.getElementById('keys');
-    const chipShift = document.getElementById('chipShift');
-    const chipAlpha = document.getElementById('chipAlpha');
-    const chipMode = document.getElementById('chipMode');
-    const statusEl = document.getElementById('status');
-
-    const degBtn = document.querySelector('.deg');
-    const radBtn = document.querySelector('.rad');
-
-    let expression = '';
-    let lastAns = 0;
-    let angleMode = 'DEG';
-    let shift = false;
-    let alpha = false;
-
-    function refreshExpr(){ exprEl.textContent = expression? pretty(expression) : '0'; }
-
-    function setMode(mode){
-      angleMode = mode;
-      degBtn.classList.toggle('active', mode==='DEG');
-      radBtn.classList.toggle('active', mode==='RAD');
-      chipMode.textContent = mode;
-      preview();
-    }
-    function toggleShift(){ shift = !shift; chipShift.textContent = 'SHIFT ' + (shift?'on':'off'); if(shift) {alpha=false; chipAlpha.textContent='ALPHA off';}}
-    function toggleAlpha(){ alpha = !alpha; chipAlpha.textContent = 'ALPHA ' + (alpha?'on':'off'); if(alpha) {shift=false; chipShift.textContent='SHIFT off';}}
-
-    document.querySelector('.pill').addEventListener('click', (e)=>{ const m=e.target?.dataset?.mode; if(!m) return; setMode(m); });
-
-    function insert(txt){ expression += txt; refreshExpr(); preview(); }
-    function ac(){ expression=''; refreshExpr(); resEl.textContent='0'; }
-    function del(){ if(!expression) return; expression = expression.slice(0,-1); refreshExpr(); preview(); }
-    function ans(){ insert(String(lastAns)); }
-
-    function pretty(s){
-      return s.replace(/asin\(/g,'sin⁻¹(').replace(/acos\(/g,'cos⁻¹(').replace(/atan\(/g,'tan⁻¹(')
-              .replace(/\*\*/g,'^').replace(/Math\.PI|\bpi\b/gi,'π');
-    }
-
-    // ---------- Evaluation ----------
-    function sanitize(expr){
-      expr = expr
-        .replace(/π|\bpi\b/gi,'PI')
-        .replace(/×/g,'*').replace(/÷/g,'/')
-        .replace(/(\d|PI|e)\s*\(/g,'$1*(') // implicit multiplication
-        .replace(/\^/g,'**');
-
-      expr = expr.replace(/\bPI\b/g,'Math.PI').replace(/\be\b/g,'Math.E');
-
-      const toRad = (x)=> angleMode==='DEG'? (x*Math.PI/180): x;
-      const fromRad = (x)=> angleMode==='DEG'? (x*180/Math.PI): x;
-
-      function fact(n){ n=Math.trunc(n); if(n<0) throw Error('fact'); let r=1; for(let i=2;i<=n;i++) r*=i; return r; }
-      function nPr(n,r){ n=Math.trunc(n); r=Math.trunc(r); if(n<0||r<0||r>n) throw Error('nPr'); return fact(n)/fact(n-r); }
-      function nCr(n,r){ n=Math.trunc(n); r=Math.trunc(r); if(n<0||r<0||r>n) throw Error('nCr'); return fact(n)/(fact(r)*fact(n-r)); }
-
-      const scope = {
-        sin:(x)=> Math.sin(toRad(x)),
-        cos:(x)=> Math.cos(toRad(x)),
-        tan:(x)=> Math.tan(toRad(x)),
-        asin:(x)=> fromRad(Math.asin(x)),
-        acos:(x)=> fromRad(Math.acos(x)),
-        atan:(x)=> fromRad(Math.atan(x)),
-        sqrt:(x)=> Math.sqrt(x),
-        log10:(x)=> Math.log10(x),
-        ln:(x)=> Math.log(x),
-        exp:(x)=> Math.exp(x),
-        pow:(x,y)=> Math.pow(x,y),
-        fact, nPr, nCr,
-        Math
-      };
-      expr = expr.replace(/\b(sin|cos|tan|asin|acos|atan|sqrt|log10|ln|exp|pow|fact|nPr|nCr)\s*\(/g,'scope.$1(');
-      return {js:expr, scope};
-    }
-
-    function evaluate(expr){
-      const {js, scope} = sanitize(expr);
-      const fn = new Function('scope','with(scope){ return ('+js+'); }');
-      const val = fn(scope);
-      if(!isFinite(val)) throw Error('Math error');
-      return val;
-    }
-
-    function format(n){
-      if(!isFinite(n)) return 'Error';
-      const abs=Math.abs(n);
-      if(abs>=1e10 || (abs>0 && abs<1e-6)) return n.toExponential(8);
-      let s=n.toFixed(12); s=s.replace(/\.0+$/,'').replace(/(\.\d*?)0+$/,'$1');
-      return s;
-    }
-
-    function preview(){
-      if(!expression){ resEl.textContent='0'; return; }
-      try{ const v=evaluate(expression); resEl.textContent=format(v);}catch{ resEl.textContent='…'; }
-    }
-
-    // ---------- Events ----------
-    keys.addEventListener('click', (e)=>{
-      const btn = e.target.closest('button.key'); if(!btn) return;
-      const action = btn.dataset.action;
-      if(action){
-        if(action==='shift'){ toggleShift(); return; }
-        if(action==='alpha'){ toggleAlpha(); return; }
-        if(action==='ac'){ ac(); return; }
-        if(action==='del'){ del(); return; }
-        if(action==='equals'){
-          try{ const v = evaluate(expression); lastAns=v; resEl.textContent=format(v); /* keep expression shown */ }
-          catch{ resEl.textContent='Error'; }
-          shift=false; alpha=false; chipShift.textContent='SHIFT off'; chipAlpha.textContent='ALPHA off';
-          return;
-        }
-        if(action==='ans'){ ans(); return; }
-        return; // other actions reserved
-      }
-      const primary = btn.dataset.primary; const shifted = btn.dataset.shift; const alphaTxt = btn.dataset.alpha;
-      if(primary || shifted || alphaTxt){
-        if(shift && shifted){ insert(shifted); shift=false; chipShift.textContent='SHIFT off'; return; }
-        if(alpha && alphaTxt){ insert(alphaTxt); alpha=false; chipAlpha.textContent='ALPHA off'; return; }
-        insert(primary || ''); return;
-      }
-      const ins = btn.dataset.insert; if(ins){ insert(ins); return; }
-    });
-
-    window.addEventListener('keydown', (e)=>{
-      const k=e.key;
-      if(k==='Enter'){ e.preventDefault(); const eqBtn=document.querySelector('[data-action="equals"]'); eqBtn.click(); return; }
-      if(k==='Backspace'){ e.preventDefault(); del(); return; }
-      if(k==='Escape'){ e.preventDefault(); ac(); return; }
-      const allowed='0123456789+-*/().,^.';
-      if(allowed.includes(k)){ insert(k); return; }
-      if(/^[a-z]$/i.test(k)){ insert(k); return; }
-    });
-
-    setMode('DEG');
-    statusEl.textContent='Ready';
-    refreshExpr();
-  })();
-  </script></body>
-                                           </html>
+        </html>
