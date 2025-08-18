@@ -1,48 +1,57 @@
-const display = document.getElementById("display");
-let shift = false;
-let ans = 0;
-let deg = true; // default is DEG mode
+// Get display elements
+const calculationDisplay = document.getElementById("calculation");
+const resultDisplay = document.getElementById("result");
 
-function insert(value) {
-  if (value === "Ans") {
-    display.value += ans;
-  } else {
-    display.value += value;
-  }
-}
+// Track input expression (what user sees) and eval expression (for JS)
+let displayExpression = "";
+let evalExpression = "";
 
-function clearDisplay() {
-  display.value = "";
-}
+// Handle button clicks
+document.querySelectorAll(".key").forEach(button => {
+  button.addEventListener("click", () => {
+    const value = button.dataset.value;
+    const action = button.dataset.action;
 
-function deleteLast() {
-  display.value = display.value.slice(0, -1);
-}
+    if (value) {
+      // Append value to both display and eval expressions
+      displayExpression += value;
+      
+      // Replace with correct JavaScript functions for eval
+      let jsValue = value
+        .replace("÷", "/")
+        .replace("×", "*")
+        .replace("√", "Math.sqrt")
+        .replace("%", "/100")
+        .replace("^", "**")
+        .replace("sin", "Math.sin")
+        .replace("cos", "Math.cos")
+        .replace("tan", "Math.tan");
 
-function calculate() {
-  try {
-    let expression = display.value;
+      evalExpression += jsValue;
 
-    // Handle DEG → RAD for trig
-    if (deg) {
-      expression = expression.replace(/Math\.sin\(([^)]+)\)/g, (_, angle) => `Math.sin((${angle})*Math.PI/180)`);
-      expression = expression.replace(/Math\.cos\(([^)]+)\)/g, (_, angle) => `Math.cos((${angle})*Math.PI/180)`);
-      expression = expression.replace(/Math\.tan\(([^)]+)\)/g, (_, angle) => `Math.tan((${angle})*Math.PI/180)`);
+      calculationDisplay.textContent = displayExpression;
+    } 
+    else if (action === "clear") {
+      // Reset everything
+      displayExpression = "";
+      evalExpression = "";
+      calculationDisplay.textContent = "";
+      resultDisplay.textContent = "";
+    } 
+    else if (action === "backspace") {
+      // Remove last character from both expressions
+      displayExpression = displayExpression.slice(0, -1);
+      evalExpression = evalExpression.slice(0, -1);
+      calculationDisplay.textContent = displayExpression;
+    } 
+    else if (action === "equals") {
+      try {
+        // Evaluate the hidden JS expression
+        let result = eval(evalExpression);
+        resultDisplay.textContent = result;
+      } catch {
+        resultDisplay.textContent = "Error";
+      }
     }
-
-    ans = eval(expression);
-    display.value = ans;
-  } catch {
-    display.value = "Error";
-  }
-}
-
-function shiftMode() {
-  shift = !shift;
-  alert("SHIFT mode (demo): in real version, buttons will change functions.");
-}
-
-function toggleDegRad() {
-  deg = !deg;
-  document.getElementById("degRad").innerText = deg ? "DEG" : "RAD";
-        }
+  });
+});
