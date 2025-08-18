@@ -1,52 +1,77 @@
-const display = document.getElementById("display");
-const buttons = document.querySelectorAll("button");
-const shiftBtn = document.getElementById("shift");
-let shiftMode = false;
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #222;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
 
-// Toggle SHIFT mode
-shiftBtn.addEventListener("click", () => {
-  shiftMode = !shiftMode;
-  shiftBtn.classList.toggle("active");
+.calculator {
+  width: 340px;
+  background: #333;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
 
-  // Update button labels when SHIFT is active
-  document.querySelectorAll(".func").forEach(btn => {
-    if (shiftMode) {
-      btn.textContent = btn.dataset.shift.replace("(", "⁻¹");
-    } else {
-      btn.textContent = btn.dataset.normal.replace("(", "").replace(">", "");
-    }
-  });
-});
+#display {
+  background: #000;
+  color: #0f0;
+  font-size: 24px;
+  padding: 15px;
+  text-align: right;
+  height: 60px;
+  overflow-x: auto;
+}
 
-buttons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    let value = btn.textContent;
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 10px;
+}
 
-    if (value === "C") {
-      display.textContent = "";
-    } else if (value === "DEL") {
-      display.textContent = display.textContent.slice(0, -1);
-    } else if (value === "=") {
-      try {
-        let expression = display.textContent
-          .replace(/÷/g, "/")
-          .replace(/×/g, "*")
-          .replace(/π/g, "Math.PI")
-          .replace(/sin\(/g, "Math.sin(")
-          .replace(/cos\(/g, "Math.cos(")
-          .replace(/tan\(/g, "Math.tan(")
-          .replace(/asin\(/g, "Math.asin(")
-          .replace(/acos\(/g, "Math.acos(")
-          .replace(/atan\(/g, "Math.atan(");
+button {
+  padding: 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  background: #555;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+}
 
-        display.textContent = eval(expression);
-      } catch {
-        display.textContent = "Error";
-      }
-    } else if (btn.classList.contains("func")) {
-      display.textContent += shiftMode ? btn.dataset.shift : btn.dataset.normal;
-    } else if (value !== "SHIFT") {
-      display.textContent += value;
-    }
-  });
-});
+button:hover {
+  background: #777;
+}
+
+button:active {
+  background: #999;
+}
+
+button:nth-child(4n) {
+  background: #f39c12;
+}
+
+button:nth-child(4n):hover {
+  background: #e67e22;
+}
+
+button:last-child {
+  background: #27ae60;
+}
+
+button:last-child:hover {
+  background: #2ecc71;
+}
+
+#shift {
+  background: #2980b9;
+}
+
+#shift.active {
+  background: #8e44ad;
+  }
